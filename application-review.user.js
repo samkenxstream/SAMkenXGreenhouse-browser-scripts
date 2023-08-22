@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Greenhouse Application Review
 // @namespace    https://canonical.com/
-// @version      1.0.2
+// @version      1.1.0
 // @author       Canonical's workplace engineering team
 // @description  Add shortcut buttons to application review page
 // @homepage     https://github.com/canonical/greenhouse-browser-scripts
@@ -66,7 +66,7 @@
             ".Select-menu-outer .Select-option"
         );
         reasonOption.forEach(function (option) {
-            if (option.ariaLabel === reason) {
+            if (option.getAttribute("aria-label") === reason) {
                 option.dispatchEvent(mouseDown);
             }
         });
@@ -140,8 +140,8 @@
       <button data-name="Illegible language" data-reason="Illegible language" class="rejection__button">
         Illegible language
       </button>
-      <button data-name="Wrong timezone" data-reason="Wrong timezone" class="rejection__button">
-        Wrong timezone
+      <button data-name="Jumpy career" data-reason="Jumpy career" class="rejection__button">
+        Jumpy career
       </button>
     </div>
     <style>

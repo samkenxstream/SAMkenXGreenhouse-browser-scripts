@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Greenhouse Application Review Helper
 // @namespace    https://canonical.com/
-// @version      0.1.11
+// @version      0.1.12
 // @description  Add's hints to application custom question answers
 // @author       Anthony Dillon
 // @icon         https://icons.duckduckgo.com/ip3/greenhouse.io.ico
@@ -69,23 +69,23 @@
                 if (questionText.startsWith("Describe")) {
                     question.classList.add(textReview(answer));
                 } else {
-                    switch (questionText) {
-                        case "Are you due to graduate soon, or have you graduated from university in the past two years?":
+                    switch (true) {
+                        case /Are you due to graduate soon, or have you graduated from university in the past two years\?/.test(questionText):
                             question.classList.add("elephant");
                             break;
-                        case "What time zone are you in?":
+                        case /What time zone are you in\?/.test(questionText):
                             question.classList.add("elephant");
                             break;
-                        case "What is your degree result? i.e. Upper second, 2.1, 85%, First class, GPA 3.8/4.0 (expected)":
+                        case /What is your degree result\?/.test(questionText):
                             question.classList.add(degreeReview(answer));
                             break;
-                        case "How did you do in maths, physics or computer science at high school?":
+                        case /How did you do in maths, physics or computer science at high school\?/.test(questionText):
                             question.classList.add(doReview(answer));
                             break;
-                        case "How did you do in your native language at high school?":
+                        case /How did you do in your native language at high school\?/.test(questionText):
                             question.classList.add(doReview(answer));
                             break;
-                        case "We expect all colleagues to meet in person twice a year, at internal company events. We try to pick interesting and new locations, so this requires international travel for a total of 2-4 weeks per year depending on your responsibilities. Are you willing and able to commit to this?":
+                        case /We expect all colleagues to meet in person twice a year.* Are you willing and able to commit to this\?/.test(questionText):
                             question.classList.add(yesReview(answer));
                             break;
                         default:
@@ -124,7 +124,8 @@
             return "pecise";
         }
         if (answer.includes("GPA")) {
-            var splitBySpace = answer.split(" ");
+            var removeColon = answer.replace(":", "");
+            var splitBySpace = removeColon.split(" ");
             var index = splitBySpace.indexOf("GPA");
             var score = splitBySpace[index + 1];
             var GPACheckResult = GPACheck(score);
